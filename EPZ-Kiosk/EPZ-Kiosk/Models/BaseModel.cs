@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EPZ_Kiosk.Models
 {
-    internal class BaseModel
+    public class BaseModel
     {
     }
 }

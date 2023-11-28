@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EPZ_Kiosk.Views
 {
-    internal class BaseView
+    public class BaseView
     {
     }
 }

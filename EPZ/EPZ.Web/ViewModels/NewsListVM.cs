@@ -1,4 +1,6 @@
-﻿namespace EPZ.Web.Models
+﻿using EPZ.Web.Models;
+
+namespace EPZ.Web.ViewModels
 {
     public class NewsListVM
     {

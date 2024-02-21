@@ -1,6 +1,8 @@
-﻿namespace EPZ.Web.Models
+﻿using EPZ.Web.Interfaces.Models;
+
+namespace EPZ.Web.Models
 {
-    public class NaverNews
+    public class NaverNews : INews
     {
         // 뉴스 기사의 제목. 제목에서 검색어와 일치하는 부분은 <b> 태그로 감싸져 있습니다.
         public string Title { get; set; }

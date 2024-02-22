@@ -1,0 +1,33 @@
+﻿@using EPZ.Web.ViewModels
+@model NewsListVM<NaverNews>
+
+
+@using (Html.BeginForm("Get", "NaverNews", FormMethod.Post))
+{
+    <button type="submit" class="btn btn-primary">Submit</button>
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>제목</th>
+            <th>날짜</th>
+            <th>링크</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model?.NewsList != null)
+        {
+            @foreach (var item in Model.NewsList)
+            {
+                <tr>
+                    <td>@item.Title</td>
+                    <td>@item.PubDate</td>
+                    <td>@item.Link</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+

@@ -2,9 +2,9 @@
 
 namespace EPZ.Web.ViewModels
 {
-    public class NewsListVM
+    public class NewsListVM<T>
     {
-        public IEnumerable<NaverNews> NewsList { get; set; }
+        public IEnumerable<T> NewsList { get; set; }
         public NewsQuery NewsQueryInfo { get; set; }
     }
 }

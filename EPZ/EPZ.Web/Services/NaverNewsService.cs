@@ -6,21 +6,22 @@ using Newtonsoft.Json;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Text;
+using EPZ.Web.ViewModels;
 
 namespace EPZ.Web.Services
 {
     public class NaverNewsService : INewsService 
     {
-        public List<T> GetNewsList<T>(NewsQuery newsQuery) where T : INews
+        public NewsListVM<T> GetNewsList<T>(NewsListVM<T> newsListVM) where T : INews
         {
-            string query = $"{newsQuery.NewsCategory}&display={newsQuery.PageSize}&start={newsQuery.Start}&sort=sim";
-            string url = $"https://openapi.naver.com/v1/search/news.json?query={query}"; // JSON 결과
-                                                                                         // string url = "https://openapi.naver.com/v1/search/blog.xml?query=" + query;  // XML 결과
+            string query = $"{newsListVM.NewsQueryInfo.NewsCategory.Replace('_', ' ')}&display={newsListVM.NewsQueryInfo.PageSize}&start={newsListVM.NewsQueryInfo.Start}&sort=sim";
+            string url = $"https://openapi.naver.com/v1/search/news.json?query={query}";
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Headers.Add("X-Naver-Client-Id", "클라이언트아이디"); // 클라이언트아이디
-            request.Headers.Add("X-Naver-Client-Secret", "클라이언트시크릿");       // 클라이언트시크릿
+            request.Headers.Add("X-Naver-Client-Secret", "클라이언트아이디");       // 클라이언트시크릿
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
             string status = response.StatusCode.ToString();
+
             if (status == "OK")
             {
                 Stream stream = response.GetResponseStream();
@@ -36,11 +37,13 @@ namespace EPZ.Web.Services
                 {
                     item.Title = GetRegexString(item.Title);
                 }
-                return newsList;
+                newsListVM.NewsList = newsList;
+
+                return newsListVM;
             }
             else
             {
-                return default(List<T>);
+                return default(NewsListVM<T>);
             }
         }
 

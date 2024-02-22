@@ -13,11 +13,20 @@ namespace EPZ.Web.Controllers.Api
     {
 
         [HttpPost]
-        [Route("Post")]
-        public async Task<ActionResult<List<NaverNews>>> Post([FromBody] NewsQuery query)
+        public async Task<ActionResult<NewsListVM<NaverNews>>> GetData([FromBody] NewsListVM<NaverNews> newsListVM)
         {
+            // 테스트용 샘플 JSON
+            //{
+            //    "NewsList": [],
+            //    "NewsQueryInfo": {
+            //    "NewsCategory": "경제",
+            //    "PageSize": 10,
+            //    "Start": 1
+            //    }
+            //}
+
             NaverNewsService ns = new NaverNewsService();
-            List<NaverNews> list = ns.GetNewsList<NaverNews>(query);            
+            NewsListVM<NaverNews> list = ns.GetNewsList<NaverNews>(newsListVM);
             return Ok(list);
         }
     }
